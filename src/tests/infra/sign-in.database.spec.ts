@@ -29,4 +29,15 @@ describe('SignInDatabase', () => {
 
     await expect(promise).rejects.toThrow();
   });
+  test('Should return successfully if MongoDbAdapter resolves', async () => {
+    const { sut, mongoDbAdapterStub } = makeSut();
+
+    const expectedUser = { id: 'any-id', username: 'fake-username' };
+
+    mongoDbAdapterStub.findByUsername.mockResolvedValueOnce(expectedUser);
+
+    const result = await sut.findByUsername(fakeInput);
+
+    expect(result).toEqual(expectedUser);
+  });
 });
