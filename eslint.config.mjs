@@ -5,7 +5,7 @@ export default [
   ...tseslint.configs.recommended, // aplica primeiro as regras padrão
 
   {
-    files: ['**/*.{js,ts}'],
+    files: ['**/*.{ts}'],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
