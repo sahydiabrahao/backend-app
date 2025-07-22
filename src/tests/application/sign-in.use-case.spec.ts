@@ -24,13 +24,13 @@ const makeSut = (): SutTypes => {
   };
 };
 
+const fakeInput: SignInInput = { username: 'fake-username', password: 'fake-password' };
 describe('SignInUseCase', () => {
   test('Should call SignInDatabaseStub with correct values', async () => {
     const { sut, signInDatabaseStub } = makeSut();
     const findByUsernameSpy = jest.spyOn(signInDatabaseStub, 'findByUsername');
 
-    const input = { username: 'johndoe', password: '123456' };
-    await sut.execute(input);
+    await sut.execute(fakeInput);
 
     expect(findByUsernameSpy).toHaveBeenCalledWith({ username: 'johndoe', password: '123456' });
   });
@@ -39,9 +39,18 @@ describe('SignInUseCase', () => {
     const { sut, signInDatabaseStub } = makeSut();
     jest.spyOn(signInDatabaseStub, 'findByUsername').mockRejectedValueOnce(new Error());
 
-    const input = { username: 'johndoe', password: '123456' };
-
-    const promise = sut.execute(input);
+    const promise = sut.execute(fakeInput);
     expect(promise).rejects.toThrow();
+  });
+  test('Should return successfully if SignInDatabaseStub resolves', async () => {
+    const { sut, signInDatabaseStub } = makeSut();
+
+    const fakeUser = { id: '1', username: 'johndoe' };
+
+    jest.spyOn(signInDatabaseStub, 'findByUsername').mockResolvedValueOnce(fakeUser);
+
+    const result = await sut.execute(fakeInput);
+
+    expect(result).toEqual(fakeUser);
   });
 });
