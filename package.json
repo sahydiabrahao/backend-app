@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc",
-    "lint": "eslint src --ext .ts"
+    "lint": "eslint src --ext .ts",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -14,9 +15,14 @@
   "devDependencies": {
     "@types/node": "^24.1.0",
     "eslint": "^9.31.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix"
   }
 }
