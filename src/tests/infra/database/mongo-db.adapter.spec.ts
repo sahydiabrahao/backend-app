@@ -39,4 +39,12 @@ describe('MongoDbAdapter (integration)', () => {
     expect(result?.id).toBeTruthy();
     expect(result?.username).toEqual('fake-username');
   });
+  test('Should return null if user does not exist in Mongo', async () => {
+    const result = await sut.findByUsername({
+      username: 'fake-username',
+      password: 'fake-password',
+    });
+
+    expect(result).toBeNull();
+  });
 });
