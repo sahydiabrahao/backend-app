@@ -30,5 +30,8 @@
   },
   "lint-staged": {
     "*.ts": "eslint --fix"
+  },
+  "dependencies": {
+    "mongodb": "^6.17.0"
   }
 }
