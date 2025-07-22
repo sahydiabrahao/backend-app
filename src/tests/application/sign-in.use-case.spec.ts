@@ -32,7 +32,7 @@ describe('SignInUseCase', () => {
 
     await sut.execute(fakeInput);
 
-    expect(findByUsernameSpy).toHaveBeenCalledWith({ username: 'johndoe', password: '123456' });
+    expect(findByUsernameSpy).toHaveBeenCalledWith(fakeInput);
   });
 
   test('Should throw if SignInDatabaseStub throws', async () => {
