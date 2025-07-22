@@ -32,6 +32,7 @@
     "*.ts": "eslint --fix"
   },
   "dependencies": {
+    "dotenv": "^17.2.0",
     "mongodb": "^6.17.0"
   }
 }

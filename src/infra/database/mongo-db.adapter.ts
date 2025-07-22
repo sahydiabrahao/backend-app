@@ -14,12 +14,12 @@ export class MongoDbAdapter implements MongoDbAdapterRepository {
   async findByUsername(input: SignInInput): Promise<SignInOutput> {
     const username = input.username;
     const user = await this.client
-      .db('test-db')
-      .collection<MongoUser>('users')
+      .db(process.env.MONGO_DB_NAME)
+      .collection<MongoUser>(process.env.MONGO_DB_COLLECTIONS!)
       .findOne({ username }, { projection: { _id: 1, username: 1 } });
     if (!user) return null;
     return {
-      id: user._id.toString(), // converte ObjectId para string
+      id: user._id.toString(),
       username: user.username,
     };
   }

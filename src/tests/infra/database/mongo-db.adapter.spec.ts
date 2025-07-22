@@ -1,33 +1,34 @@
 import { MongoClient } from 'mongodb';
 import { MongoDbAdapter } from '@/infra/database/mongo-db.adapter';
+import dotenv from 'dotenv';
 
+dotenv.config();
 describe('MongoDbAdapter (integration)', () => {
   let client: MongoClient;
   let sut: MongoDbAdapter;
 
-  const MONGO_URL = 'mongodb://localhost:27017';
-  const DB_NAME = 'test-db';
-  const COLLECTION = 'users';
-
   beforeAll(async () => {
-    client = new MongoClient(MONGO_URL);
+    client = new MongoClient(process.env.MONGO_URL!);
     await client.connect();
   });
 
   beforeEach(async () => {
-    const db = client.db(DB_NAME);
-    await db.collection(COLLECTION).deleteMany({});
+    const db = client.db(process.env.MONGO_DB_NAME!);
+    await db.collection(process.env.MONGO_DB_COLLECTIONS!).deleteMany({});
     sut = new MongoDbAdapter(client);
   });
 
   afterAll(async () => {
-    await client.db(DB_NAME).collection(COLLECTION).deleteMany({});
+    await client
+      .db(process.env.MONGO_DB_NAME!)
+      .collection(process.env.MONGO_DB_COLLECTIONS!)
+      .deleteMany({});
     await client.close();
   });
 
   test('Should return user data if user exists in Mongo', async () => {
-    const db = client.db(DB_NAME);
-    await db.collection(COLLECTION).insertOne({
+    const db = client.db(process.env.MONGO_DB_NAME!);
+    await db.collection(process.env.MONGO_DB_COLLECTIONS!).insertOne({
       username: 'fake-username',
     });
 
