@@ -20,4 +20,13 @@ describe('SignInDatabase', () => {
 
     expect(mongoDbAdapterStub.findByUsername).toHaveBeenCalledWith(fakeInput);
   });
+  test('Should throw if MongoDbAdapter throws', async () => {
+    const { sut, mongoDbAdapterStub } = makeSut();
+
+    jest.spyOn(mongoDbAdapterStub, 'findByUsername').mockRejectedValueOnce(new Error());
+
+    const promise = sut.findByUsername(fakeInput);
+
+    await expect(promise).rejects.toThrow();
+  });
 });
