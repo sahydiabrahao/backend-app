@@ -5,7 +5,7 @@ export class SignInUseCase {
 
   async execute(input: SignInInput): Promise<SignInOutput> {
     const user = await this.signInRepository.findByUsername(input);
-    if (!user) throw new Error('Invalid credentials'); // ou 'User not found'
+    if (!user || user.password !== input.password) throw new Error('Invalid credentials');
     return user;
   }
 }

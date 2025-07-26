@@ -5,7 +5,7 @@ export class SignInDatabase implements SignInRepository {
   constructor(private readonly mongoDbAdapter: MongoDbAdapterRepository) {}
 
   async findByUsername(input: SignInInput): Promise<SignInOutput | null> {
-    const result = await this.mongoDbAdapter.findByUsername(input);
-    return result;
+    const output = await this.mongoDbAdapter.findByUsername(input);
+    return output;
   }
 }
