@@ -1,3 +1,4 @@
+import { InvalidCredentialsError, MissingParamsError } from '@/domain/errors';
 import { SignInInput } from '@/domain/sign-in/sign-in.repository';
 import { signInController } from '@/main/sign-in/sign-in.controller';
 import { FastifyReply, FastifyRequest } from 'fastify';
@@ -31,6 +32,8 @@ describe('signInController', () => {
     const req = createMockRequest({});
     const { reply, status, send } = createMockReply();
 
+    mockExecute.mockRejectedValueOnce(new MissingParamsError());
+
     await signInController(req, reply);
 
     expect(status).toHaveBeenCalledWith(400);
@@ -39,13 +42,13 @@ describe('signInController', () => {
     });
   });
 
-  it('Should return 404 if credentials are invalid', async () => {
+  it('Should return 401 if credentials are invalid', async () => {
     const input: SignInInput = {
       username: 'invalid-username',
       password: 'invalid-password',
     };
 
-    mockExecute.mockRejectedValueOnce(new Error('Invalid credentials'));
+    mockExecute.mockRejectedValueOnce(new InvalidCredentialsError());
 
     const req = createMockRequest(input);
     const { reply, status, send } = createMockReply();
@@ -53,7 +56,7 @@ describe('signInController', () => {
     await signInController(req, reply);
 
     expect(mockExecute).toHaveBeenCalledWith(input);
-    expect(status).toHaveBeenCalledWith(404);
+    expect(status).toHaveBeenCalledWith(401);
     expect(send).toHaveBeenCalledWith({ error: 'Invalid credentials' });
   });
 
