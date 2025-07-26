@@ -1,14 +1,14 @@
 import { SignInUseCase } from '@/application/sign-in/sign-in.use-case';
-import { InvalidCredentialsError } from '@/domain/errors';
-import { SignInInput, SignInOutput, SignInRepository } from '@/domain/sign-in/sign-in.repository';
+import { InvalidCredentialsError, MissingParamsError } from '@/domain/errors';
+import { SignInInput, SignInOutput, SignInService } from '@/domain/sign-in/sign-in.service';
 
 type SutTypes = {
   sut: SignInUseCase;
-  signInDatabaseStub: SignInRepository;
+  signInDatabaseStub: SignInService;
 };
 
-const makeSignInRepositoryStub = (): SignInRepository => {
-  class SignInRepositoryStub implements SignInRepository {
+const makeSignInRepositoryStub = (): SignInService => {
+  class SignInRepositoryStub implements SignInService {
     async findByUsername() {
       return anyOutput;
     }
@@ -47,8 +47,13 @@ describe('SignInUseCase', () => {
     const promise = sut.execute(anyInput);
     expect(promise).rejects.toThrow(InvalidCredentialsError);
   });
+  it('Should throw MissingParamsError if input is empty', async () => {
+    const { sut } = makeSut();
+
+    await expect(sut.execute({} as unknown as SignInInput)).rejects.toThrow(MissingParamsError);
+  });
   it('Should throw InvalidCredentialsError if password is incorrect', async () => {
-    const signInRepositoryStub: SignInRepository = {
+    const signInRepositoryStub: SignInService = {
       findByUsername: jest
         .fn()
         .mockResolvedValue({ username: 'any-username', password: 'invalid-password' }),

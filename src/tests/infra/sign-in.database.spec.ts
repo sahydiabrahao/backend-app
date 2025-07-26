@@ -1,4 +1,4 @@
-import { SignInInput } from '@/domain/sign-in/sign-in.repository';
+import { SignInInput } from '@/domain/sign-in/sign-in.service';
 import { SignInDatabase } from '@/infra/sign-in/sign-in.database';
 
 const makeMongoDbAdapterStub = () => ({

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1753544467851" clover="3.2.0">
+  <project timestamp="1753544467852" name="All files">
+    <metrics statements="17" coveredstatements="17" conditionals="10" coveredconditionals="10" methods="6" coveredmethods="6" elements="33" coveredelements="33" complexity="0" loc="17" ncloc="17" packages="3" files="3" classes="3"/>
+    <package name="application.sign-in">
+      <metrics statements="7" coveredstatements="7" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
+      <file name="sign-in.use-case.ts" path="/home/user/Desktop/backend/src/application/sign-in/sign-in.use-case.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="8" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="10" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="11" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="infra.database">
+      <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <file name="mongo-db.adapter.ts" path="/home/user/Desktop/backend/src/infra/database/mongo-db.adapter.ts">
+        <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="19" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="infra.sign-in">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="sign-in.database.ts" path="/home/user/Desktop/backend/src/infra/sign-in/sign-in.database.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

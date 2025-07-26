@@ -1,7 +1,7 @@
-import { SignInRepository, SignInInput, SignInOutput } from '@/domain/sign-in/sign-in.repository';
+import { SignInService, SignInInput, SignInOutput } from '@/domain/sign-in/sign-in.service';
 import { MongoDbAdapterRepository } from '@/infra/database/mongo-db.adapter';
 
-export class SignInDatabase implements SignInRepository {
+export class SignInDatabase implements SignInService {
   constructor(private readonly mongoDbAdapter: MongoDbAdapterRepository) {}
 
   async findByUsername(input: SignInInput): Promise<SignInOutput | null> {

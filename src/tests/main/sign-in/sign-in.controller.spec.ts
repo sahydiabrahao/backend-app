@@ -1,5 +1,5 @@
 import { InvalidCredentialsError, MissingParamsError } from '@/domain/errors';
-import { SignInInput } from '@/domain/sign-in/sign-in.repository';
+import { SignInInput } from '@/domain/sign-in/sign-in.service';
 import { signInController } from '@/main/sign-in/sign-in.controller';
 import { FastifyReply, FastifyRequest } from 'fastify';
 

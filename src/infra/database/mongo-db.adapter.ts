@@ -2,7 +2,7 @@ import {
   SignInInput,
   SignInOutput,
   SignInOutputWithoutNull,
-} from '@/domain/sign-in/sign-in.repository';
+} from '@/domain/sign-in/sign-in.service';
 import { MongoClient } from 'mongodb';
 export interface MongoDbAdapterRepository {
   findByUsername(input: SignInInput): Promise<SignInOutput>;

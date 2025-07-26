@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { signInFactory } from './sign-in.factory';
-import { SignInInput, SignInOutputWithoutNull } from '@/domain/sign-in/sign-in.repository';
+import { SignInInput, SignInOutputWithoutNull } from '@/domain/sign-in/sign-in.service';
 import { InternalServerError, InvalidCredentialsError, MissingParamsError } from '@/domain/errors';
 
 export async function signInController(
