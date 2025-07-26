@@ -1,10 +1,12 @@
-import { SignInInput, SignInOutput } from '@/domain/sign-in/sign-in.repository';
+import {
+  SignInInput,
+  SignInOutput,
+  SignInOutputWithoutNull,
+} from '@/domain/sign-in/sign-in.repository';
 import { MongoClient } from 'mongodb';
 export interface MongoDbAdapterRepository {
   findByUsername(input: SignInInput): Promise<SignInOutput>;
 }
-
-export type SignInOutputWithoutNull = Exclude<SignInOutput, null>;
 
 export class MongoDbAdapter implements MongoDbAdapterRepository {
   constructor(private readonly client: MongoClient) {}

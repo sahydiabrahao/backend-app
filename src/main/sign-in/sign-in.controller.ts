@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { signInFactory } from './sign-in.factory';
-import { SignInInput } from '@/domain/sign-in/sign-in.repository';
+import { SignInInput, SignInOutputWithoutNull } from '@/domain/sign-in/sign-in.repository';
 import { InternalServerError, InvalidCredentialsError, MissingParamsError } from '@/domain/errors';
 
 export async function signInController(
@@ -8,10 +8,10 @@ export async function signInController(
   reply: FastifyReply
 ) {
   const signInUseCase = signInFactory();
-
   try {
     const user = await signInUseCase.execute(req.query);
-    return reply.send(user);
+    const { id, username } = user as SignInOutputWithoutNull;
+    return reply.status(200).send({ id, username });
   } catch (error) {
     if (error instanceof MissingParamsError)
       return reply.status(400).send({ error: error.message });

@@ -66,12 +66,12 @@ describe('signInController', () => {
       password: 'valid-password',
     };
 
-    const mockUser = {
+    const anyAccount = {
       id: 'any-id',
-      username: 'valid-usernamer',
+      username: 'valid-username',
     };
 
-    mockExecute.mockResolvedValueOnce(mockUser);
+    mockExecute.mockResolvedValueOnce(anyAccount);
 
     const req = createMockRequest(input);
     const { reply, status, send } = createMockReply();
@@ -79,7 +79,7 @@ describe('signInController', () => {
     await signInController(req, reply);
 
     expect(mockExecute).toHaveBeenCalledWith(input);
-    expect(status).not.toHaveBeenCalled();
-    expect(send).toHaveBeenCalledWith(mockUser);
+    expect(status).toHaveBeenCalledWith(200);
+    expect(send).toHaveBeenCalledWith(anyAccount);
   });
 });

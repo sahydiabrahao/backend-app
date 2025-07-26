@@ -18,10 +18,26 @@ describe('signInRoutes', () => {
     const res = await app.inject({
       method: 'GET',
       url: '/sign-in',
+      query: {
+        username: 'any-username',
+        password: 'any-password',
+      },
     });
 
     expect(res.statusCode).toBe(200);
     expect(res.json()).toEqual({ message: 'controller called' });
     expect(mockController).toHaveBeenCalledTimes(1);
+  });
+  it('Should return 400 if required query params are missing', async () => {
+    const app = Fastify();
+    await signInRoutes(app);
+
+    const res = await app.inject({
+      method: 'GET',
+      url: '/sign-in',
+      query: {},
+    });
+
+    expect(res.statusCode).toBe(400);
   });
 });
