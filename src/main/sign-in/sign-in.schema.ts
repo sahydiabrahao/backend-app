@@ -1,7 +1,7 @@
 import { FastifySchema } from 'fastify';
 
 export const signInSchema: FastifySchema = {
-  querystring: {
+  body: {
     type: 'object',
     required: ['username', 'password'],
     properties: {

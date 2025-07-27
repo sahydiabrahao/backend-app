@@ -1,13 +1,24 @@
-import { SignInService, SignInOutput, SignInInput } from '@/domain/sign-in/sign-in.service';
-import { InvalidCredentialsError, MissingParamsError } from '@/domain/errors';
+import { SignInProtocol, SignInInput, SignInOutput } from '@/domain/sign-in/sign-in.protocol';
+import { FindUserByUsernameProtocol } from '@/domain/find-user-by-username/find-user-by-username.protocol';
+import { InvalidCredentialsError } from '@/domain/errors';
+import { AccessTokenProtocol } from '@/domain/access-token/access-token.protocol';
 
-export class SignInUseCase {
-  constructor(private readonly signInRepository: SignInService) {}
+export class SignInUseCase implements SignInProtocol {
+  constructor(
+    private readonly findUserByUsername: FindUserByUsernameProtocol,
+    private readonly accessToken: AccessTokenProtocol
+  ) {}
 
-  async execute(input: SignInInput): Promise<SignInOutput> {
-    if (!input || Object.values(input).length === 0) throw new MissingParamsError();
-    const output = await this.signInRepository.findByUsername(input);
-    if (!output || output.password !== input.password) throw new InvalidCredentialsError();
-    return output;
+  async signIn(input: SignInInput): Promise<SignInOutput> {
+    const user = await this.findUserByUsername.findByUsername({ username: input.username });
+
+    if (!user) throw new InvalidCredentialsError();
+
+    const token = await this.accessToken.generate({ key: user.id });
+
+    return {
+      accessToken: token.accessToken,
+      userId: user.id,
+    };
   }
 }

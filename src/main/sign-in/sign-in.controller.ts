@@ -1,22 +1,25 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { signInFactory } from './sign-in.factory';
-import { SignInInput, SignInOutputWithoutNull } from '@/domain/sign-in/sign-in.service';
-import { InternalServerError, InvalidCredentialsError, MissingParamsError } from '@/domain/errors';
+import { InternalServerError, MissingParamsError, HttpError } from '@/domain/errors';
 
-export async function signInController(
-  req: FastifyRequest<{ Querystring: SignInInput }>,
-  reply: FastifyReply
-) {
+export async function signInController(req: FastifyRequest, reply: FastifyReply) {
   const signInUseCase = signInFactory();
+
   try {
-    const user = await signInUseCase.execute(req.query);
-    const { id, username } = user as SignInOutputWithoutNull;
-    return reply.status(200).send({ id, username });
+    const { username, password } = req.body as {
+      username?: string;
+      password?: string;
+    };
+
+    if (!username || !password) throw new MissingParamsError();
+
+    const { accessToken, userId } = await signInUseCase.signIn({ username, password });
+
+    return reply.status(200).send({ accessToken, userId });
   } catch (error) {
-    if (error instanceof MissingParamsError)
-      return reply.status(400).send({ error: error.message });
-    if (error instanceof InvalidCredentialsError)
-      return reply.status(401).send({ error: error.message });
+    if (error instanceof HttpError)
+      return reply.status(error.statusCode).send({ error: error.message });
+
     return reply.status(500).send({ error: new InternalServerError().message });
   }
 }

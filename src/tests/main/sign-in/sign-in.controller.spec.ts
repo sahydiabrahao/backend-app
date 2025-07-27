@@ -1,10 +1,9 @@
 import { InvalidCredentialsError, MissingParamsError } from '@/domain/errors';
-import { SignInInput } from '@/domain/sign-in/sign-in.service';
 import { signInController } from '@/main/sign-in/sign-in.controller';
 import { FastifyReply, FastifyRequest } from 'fastify';
 
-const mockExecute = jest.fn();
-const mockFactory = { execute: mockExecute };
+const mockSignIn = jest.fn();
+const mockFactory = { signIn: mockSignIn };
 
 jest.mock('@/main/sign-in/sign-in.factory', () => ({
   signInFactory: () => mockFactory,
@@ -17,10 +16,10 @@ function createMockReply() {
   return { reply, status, send };
 }
 
-function createMockRequest(query: Partial<SignInInput> = {}) {
+function createMockRequest(body: { username?: string; password?: string }): FastifyRequest {
   return {
-    query,
-  } as FastifyRequest<{ Querystring: SignInInput }>;
+    body,
+  } as FastifyRequest;
 }
 
 describe('signInController', () => {
@@ -28,58 +27,58 @@ describe('signInController', () => {
     jest.clearAllMocks();
   });
 
-  it('Should return 400 if username or password is missing', async () => {
-    const req = createMockRequest({});
+  it('should return 400 if username or password is missing', async () => {
+    const req = createMockRequest({}); // campos ausentes
     const { reply, status, send } = createMockReply();
-
-    mockExecute.mockRejectedValueOnce(new MissingParamsError());
 
     await signInController(req, reply);
 
     expect(status).toHaveBeenCalledWith(400);
     expect(send).toHaveBeenCalledWith({
-      error: 'Missing params error',
+      error: new MissingParamsError().message,
     });
   });
 
-  it('Should return 401 if credentials are invalid', async () => {
-    const input: SignInInput = {
+  it('should return 401 if credentials are invalid', async () => {
+    const input = {
       username: 'invalid-username',
       password: 'invalid-password',
     };
 
-    mockExecute.mockRejectedValueOnce(new InvalidCredentialsError());
+    mockSignIn.mockRejectedValueOnce(new InvalidCredentialsError());
 
     const req = createMockRequest(input);
     const { reply, status, send } = createMockReply();
 
     await signInController(req, reply);
 
-    expect(mockExecute).toHaveBeenCalledWith(input);
+    expect(mockSignIn).toHaveBeenCalledWith(input);
     expect(status).toHaveBeenCalledWith(401);
-    expect(send).toHaveBeenCalledWith({ error: 'Invalid credentials' });
+    expect(send).toHaveBeenCalledWith({
+      error: new InvalidCredentialsError().message,
+    });
   });
 
-  it('Should return 200 and the user if credentials are valid', async () => {
-    const input: SignInInput = {
+  it('should return 200 and token if credentials are valid', async () => {
+    const input = {
       username: 'valid-username',
       password: 'valid-password',
     };
 
-    const anyAccount = {
-      id: 'any-id',
-      username: 'valid-username',
+    const response = {
+      accessToken: 'valid-token',
+      userId: 'user-123',
     };
 
-    mockExecute.mockResolvedValueOnce(anyAccount);
+    mockSignIn.mockResolvedValueOnce(response);
 
     const req = createMockRequest(input);
     const { reply, status, send } = createMockReply();
 
     await signInController(req, reply);
 
-    expect(mockExecute).toHaveBeenCalledWith(input);
+    expect(mockSignIn).toHaveBeenCalledWith(input);
     expect(status).toHaveBeenCalledWith(200);
-    expect(send).toHaveBeenCalledWith(anyAccount);
+    expect(send).toHaveBeenCalledWith(response);
   });
 });

@@ -16,9 +16,9 @@ describe('signInRoutes', () => {
     await signInRoutes(app);
 
     const res = await app.inject({
-      method: 'GET',
+      method: 'POST',
       url: '/sign-in',
-      query: {
+      body: {
         username: 'any-username',
         password: 'any-password',
       },
@@ -33,7 +33,7 @@ describe('signInRoutes', () => {
     await signInRoutes(app);
 
     const res = await app.inject({
-      method: 'GET',
+      method: 'POST',
       url: '/sign-in',
       query: {},
     });
