@@ -12,10 +12,10 @@
 - [x] Test: should return false if password is invalid
 - [x] Test: should return true on success
 
-## 🛠️ INFRA (Custom)
+## 🛠️ INFRA (BCrypt)
 
-- [ ] `compare-password.default-adapter.ts`
-- [ ] Test: should compare raw password with correct input
-- [ ] Test: should throw if comparison logic throws
+- [ ] `compare-password.bcrypt-adapter.ts`
+- [ ] Test: should call bcrypt.compare with correct input
+- [ ] Test: should throw if bcrypt.compare throws
 - [ ] Test: should return true on success
 - [ ] Test: should return false if password is invalid
