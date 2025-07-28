@@ -42,4 +42,9 @@ describe('ComparePasswordUseCase', () => {
     jest.spyOn(comparePasswordStub, 'compare').mockRejectedValueOnce(new Error('unexpected_error'));
     await expect(sut.execute(FAKE_INPUT)).rejects.toThrow('unexpected_error');
   });
+  it('should return false if password is invalid', async () => {
+    const { sut, comparePasswordStub } = makeSut();
+    jest.spyOn(comparePasswordStub, 'compare').mockResolvedValueOnce(false);
+    await expect(sut.execute(FAKE_INPUT)).resolves.toBe(false);
+  });
 });

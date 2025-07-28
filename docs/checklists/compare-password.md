@@ -10,7 +10,7 @@
 - [x] Test: should call ComparePassword with correct input
 - [x] Test: should throw if ComparePassword throws
 - [ ] Test: should return true on success
-- [ ] Test: should return false if password is invalid
+- [x] Test: should return false if password is invalid
 
 ## 🛠️ INFRA (Custom)
 
