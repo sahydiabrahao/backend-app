@@ -5,6 +5,6 @@ export type ComparePasswordInput = {
 
 export type ComparePasswordOutput = boolean;
 
-export interface ComparePassword {
+export interface ComparePasswordProtocol {
   compare: (input: ComparePasswordInput) => Promise<ComparePasswordOutput>;
 }
