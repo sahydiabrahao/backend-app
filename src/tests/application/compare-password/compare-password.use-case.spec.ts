@@ -36,4 +36,10 @@ describe('ComparePasswordUseCase', () => {
     await sut.execute(FAKE_INPUT);
     expect(compareSpy).toHaveBeenCalledWith(FAKE_INPUT);
   });
+
+  it('should throw if ComparePassword throws', async () => {
+    const { sut, comparePasswordStub } = makeSut();
+    jest.spyOn(comparePasswordStub, 'compare').mockRejectedValueOnce(new Error('unexpected_error'));
+    await expect(sut.execute(FAKE_INPUT)).rejects.toThrow('unexpected_error');
+  });
 });
