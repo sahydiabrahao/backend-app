@@ -47,4 +47,8 @@ describe('ComparePasswordUseCase', () => {
     jest.spyOn(comparePasswordStub, 'compare').mockResolvedValueOnce(false);
     await expect(sut.execute(FAKE_INPUT)).resolves.toBe(false);
   });
+  it('should return true on success', async () => {
+    const { sut } = makeSut();
+    await expect(sut.execute(FAKE_INPUT)).resolves.toBe(true);
+  });
 });

@@ -9,8 +9,8 @@
 - [x] `compare-password.use-case.ts`
 - [x] Test: should call ComparePassword with correct input
 - [x] Test: should throw if ComparePassword throws
-- [ ] Test: should return true on success
 - [x] Test: should return false if password is invalid
+- [x] Test: should return true on success
 
 ## 🛠️ INFRA (Custom)
 
