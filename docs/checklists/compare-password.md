@@ -2,7 +2,7 @@
 
 ## 🧩 DOMAIN
 
-- [ ] `compare-password.protocol.ts`
+- [x] `compare-password.protocol.ts`
 
 ## ⚙️ APPLICATION
 
