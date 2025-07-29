@@ -136,4 +136,12 @@ describe('SignInUseCase', () => {
 
     await expect(sut.signIn(FAKE_INPUT)).rejects.toThrow('compare failed');
   });
+
+  it('should throw if ComparePassword returns false', async () => {
+    const { sut, comparePasswordStub } = makeSut();
+
+    jest.spyOn(comparePasswordStub, 'compare').mockResolvedValueOnce(false);
+
+    await expect(sut.signIn(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
+  });
 });

@@ -21,6 +21,14 @@ describe('JwtAdapter', () => {
     expect(decoded.sub).toBe('any-user-id');
   });
 
+  it('should use default expiration if none is provided', async () => {
+    const sut = new AccessTokenJwtAdapter('my-secret');
+
+    const result = await sut.generate({ key: 'user-id' });
+
+    expect(result).toHaveProperty('accessToken');
+  });
+
   it('should throw if secret is invalid', async () => {
     const invalidAdapter = new AccessTokenJwtAdapter('', EXPIRES_IN);
     await expect(() => invalidAdapter.generate({ key: 'any-user-id' })).rejects.toThrow();

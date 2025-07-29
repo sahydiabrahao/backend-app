@@ -14,11 +14,11 @@ export class SignInUseCase implements SignInProtocol {
   async signIn(input: SignInInput): Promise<SignInOutput> {
     const user = await this.findUserByUsername.findByUsername({ username: input.username });
     if (!user) throw new InvalidCredentialsError();
-    const isValidPassowrd = await this.comparePassword.compare({
+    const isValidPassword = await this.comparePassword.compare({
       password: input.password,
       hashed: user.password,
     });
-    if (!isValidPassowrd) throw new InvalidCredentialsError();
+    if (!isValidPassword) throw new InvalidCredentialsError();
     const token = await this.accessToken.generate({ key: user.id });
     return {
       accessToken: token.accessToken,

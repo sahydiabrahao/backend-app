@@ -1,40 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1753544467851" clover="3.2.0">
-  <project timestamp="1753544467852" name="All files">
-    <metrics statements="17" coveredstatements="17" conditionals="10" coveredconditionals="10" methods="6" coveredmethods="6" elements="33" coveredelements="33" complexity="0" loc="17" ncloc="17" packages="3" files="3" classes="3"/>
-    <package name="application.sign-in">
-      <metrics statements="7" coveredstatements="7" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
-      <file name="sign-in.use-case.ts" path="/home/user/Desktop/backend/src/application/sign-in/sign-in.use-case.ts">
-        <metrics statements="7" coveredstatements="7" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="5" type="stmt"/>
-        <line num="8" count="5" type="cond" truecount="4" falsecount="0"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="11" count="2" type="stmt"/>
-      </file>
-    </package>
-    <package name="infra.database">
-      <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-      <file name="mongo-db.adapter.ts" path="/home/user/Desktop/backend/src/infra/database/mongo-db.adapter.ts">
-        <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="19" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="20" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="infra.sign-in">
+<coverage generated="1753798660134" clover="3.2.0">
+  <project timestamp="1753798660134" name="All files">
+    <metrics statements="38" coveredstatements="38" conditionals="7" coveredconditionals="7" methods="13" coveredmethods="13" elements="58" coveredelements="58" complexity="0" loc="38" ncloc="38" packages="7" files="7" classes="7"/>
+    <package name="application.access-token">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="sign-in.database.ts" path="/home/user/Desktop/backend/src/infra/sign-in/sign-in.database.ts">
+      <file name="access-token.use-case.ts" path="/home/user/Desktop/backend/src/application/access-token/access-token.use-case.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
         <line num="8" count="3" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="application.compare-password">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="compare-password.use-case.ts" path="/home/user/Desktop/backend/src/application/compare-password/compare-password.use-case.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="application.find-user-by-username">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="find-user-by-username.use-case.ts" path="/home/user/Desktop/backend/src/application/find-user-by-username/find-user-by-username.use-case.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="application.sign-in">
+      <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+      <file name="sign-in.use-case.ts" path="/home/user/Desktop/backend/src/application/sign-in/sign-in.use-case.ts">
+        <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="9" type="stmt"/>
+        <line num="10" count="9" type="stmt"/>
+        <line num="11" count="9" type="stmt"/>
+        <line num="15" count="9" type="stmt"/>
+        <line num="16" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="7" type="stmt"/>
+        <line num="21" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="5" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="infra.access-token">
+      <metrics statements="8" coveredstatements="8" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
+      <file name="access-token.jwt-adapter.ts" path="/home/user/Desktop/backend/src/infra/access-token/access-token.jwt-adapter.ts">
+        <metrics statements="8" coveredstatements="8" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="infra.compare-password">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="compare-password.bcrypt-adapter.ts" path="/home/user/Desktop/backend/src/infra/compare-password/compare-password.bcrypt-adapter.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="infra.find-user-by-username">
+      <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <file name="find-user-by-username.mongo-adapter.ts" path="/home/user/Desktop/backend/src/infra/find-user-by-username/find-user-by-username.mongo-adapter.ts">
+        <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="20" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="1" type="stmt"/>
       </file>
     </package>
   </project>

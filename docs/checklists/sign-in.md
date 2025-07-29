@@ -13,8 +13,7 @@
 
 - [x] Test: should call ComparePassword with correct input
 - [x] Test: should throw if ComparePassword throws
-- [ ] Test: should throw if password is invalid
-- [ ] Test: should return true on success
+- [x] Test: should throw if ComparePassword returns false
 
 - [x] Test: should call AccessToken with correct input
 - [x] Test: should throw if AccessToken throws
