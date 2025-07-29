@@ -8,16 +8,26 @@ const makeSut = () => {
   return { sut };
 };
 
+const FAKE_INPUT = {
+  password: 'any-password',
+  hashed: 'hashed-password',
+};
+
 describe('ComparePasswordBcryptAdapter', () => {
   it('should call bcrypt.compare with correct input', async () => {
     const { sut } = makeSut();
-    const input = {
-      password: 'plain-password',
-      hashed: 'hashed-password',
-    };
 
-    await sut.compare(input);
+    await sut.compare(FAKE_INPUT);
 
-    expect(bcrypt.compare).toHaveBeenCalledWith(input.password, input.hashed);
+    expect(bcrypt.compare).toHaveBeenCalledWith(FAKE_INPUT.password, FAKE_INPUT.hashed);
+  });
+
+  it('should throw if bcrypt.compare throws', async () => {
+    const { sut } = makeSut();
+    (bcrypt.compare as jest.Mock).mockImplementationOnce(() => {
+      throw new Error('bcrypt error');
+    });
+
+    await expect(sut.compare(FAKE_INPUT)).rejects.toThrow('bcrypt error');
   });
 });
