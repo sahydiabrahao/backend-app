@@ -30,4 +30,12 @@ describe('ComparePasswordBcryptAdapter', () => {
 
     await expect(sut.compare(FAKE_INPUT)).rejects.toThrow('bcrypt error');
   });
+  it('should return false if password is invalid', async () => {
+    const { sut } = makeSut();
+    (bcrypt.compare as jest.Mock).mockResolvedValueOnce(false);
+
+    const result = await sut.compare(FAKE_INPUT);
+
+    expect(result).toBe(false);
+  });
 });
