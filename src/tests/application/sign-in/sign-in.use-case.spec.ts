@@ -1,5 +1,6 @@
 import { SignInUseCase } from '@/application/sign-in/sign-in.use-case';
 import { AccessTokenProtocol } from '@/domain/access-token/access-token.protocol';
+import { ComparePasswordProtocol } from '@/domain/compare-password/compare-password.protocol';
 import { InvalidCredentialsError } from '@/domain/errors';
 import { FindUserByUsernameProtocol } from '@/domain/find-user-by-username/find-user-by-username.protocol';
 
@@ -11,7 +12,7 @@ const FAKE_INPUT = {
 const FAKE_USER = {
   id: 'any-id',
   username: 'any-username',
-  password: 'any-password',
+  password: 'any-hashed-password',
 };
 
 const FAKE_TOKEN = {
@@ -22,6 +23,16 @@ type SutTypes = {
   sut: SignInUseCase;
   findUserByUsernameStub: FindUserByUsernameProtocol;
   accessTokenStub: AccessTokenProtocol;
+  comparePasswordStub: ComparePasswordProtocol;
+};
+
+const makeComparePasswordStub = (): ComparePasswordProtocol => {
+  class ComparePasswordStub implements ComparePasswordProtocol {
+    async compare() {
+      return true;
+    }
+  }
+  return new ComparePasswordStub();
 };
 
 const makeAccessTokenStub = (): AccessTokenProtocol => {
@@ -43,13 +54,15 @@ const makeFindUserByUsernameStub = (): FindUserByUsernameProtocol => {
 };
 
 const makeSut = (): SutTypes => {
+  const comparePasswordStub = makeComparePasswordStub();
   const findUserByUsernameStub = makeFindUserByUsernameStub();
   const accessTokenStub = makeAccessTokenStub();
-  const sut = new SignInUseCase(findUserByUsernameStub, accessTokenStub);
+  const sut = new SignInUseCase(findUserByUsernameStub, accessTokenStub, comparePasswordStub);
   return {
     sut,
     findUserByUsernameStub,
     accessTokenStub,
+    comparePasswordStub,
   };
 };
 
@@ -101,6 +114,17 @@ describe('SignInUseCase', () => {
     expect(result).toEqual({
       accessToken: 'any-valid-token',
       userId: 'any-id',
+    });
+  });
+
+  it('should call ComparePassword with correct input', async () => {
+    const { sut, comparePasswordStub } = makeSut();
+    const comparePasswordSpy = jest.spyOn(comparePasswordStub, 'compare');
+    await sut.signIn(FAKE_INPUT);
+
+    expect(comparePasswordSpy).toHaveBeenCalledWith({
+      password: FAKE_INPUT.password,
+      hashed: FAKE_USER.password,
     });
   });
 });

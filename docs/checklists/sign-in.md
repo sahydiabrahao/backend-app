@@ -11,6 +11,11 @@
 - [x] Test: should throw if FindUserByUsername throws
 - [x] Test: should throw if user is not found
 
+- [x] Test: should call ComparePassword with correct input
+- [ ] Test: should throw if ComparePassword throws
+- [ ] Test: should throw if password is invalid
+- [ ] Test: should return true on success
+
 - [x] Test: should call AccessToken with correct input
 - [x] Test: should throw if AccessToken throws
 - [x] Test: should return token on success
