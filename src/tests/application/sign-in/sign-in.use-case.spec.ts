@@ -127,4 +127,13 @@ describe('SignInUseCase', () => {
       hashed: FAKE_USER.password,
     });
   });
+  it('should throw if ComparePassword throws', async () => {
+    const { sut, comparePasswordStub } = makeSut();
+
+    jest.spyOn(comparePasswordStub, 'compare').mockImplementationOnce(() => {
+      throw new Error('compare failed');
+    });
+
+    await expect(sut.signIn(FAKE_INPUT)).rejects.toThrow('compare failed');
+  });
 });
