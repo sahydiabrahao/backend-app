@@ -2,7 +2,7 @@ import { VerifyAccessTokenUseCase } from '@/application/verify-access-token/veri
 import { VerifyAccessTokenProtocol } from '@/domain/verify-access-token/verify-access-token';
 
 const makeVerifyAccessTokenStub = (): VerifyAccessTokenProtocol => ({
-  verify: jest.fn(async () => ({ userId: 'user-123' })),
+  verify: jest.fn(async () => ({ userId: 'any-user-id' })),
 });
 
 const makeSut = () => {
@@ -33,5 +33,13 @@ describe('VerifyAccessTokenUseCase', () => {
     });
 
     await expect(sut.execute(FAKE_INPUT)).rejects.toThrow('invalid token');
+  });
+
+  it('should return payload on success', async () => {
+    const { sut } = makeSut();
+
+    const result = await sut.execute(FAKE_INPUT);
+
+    expect(result).toEqual({ userId: 'any-user-id' });
   });
 });
