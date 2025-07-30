@@ -10,7 +10,6 @@ export class VerifyAccessTokenJwtAdapter implements VerifyAccessTokenProtocol {
 
   async verify(input: VerifyAccessTokenInput): Promise<VerifyAccessTokenOutput> {
     const decoded = jwt.verify(input.token, this.secret) as { sub: string };
-    if (!decoded?.sub) return null;
     return { userId: decoded.sub };
   }
 }

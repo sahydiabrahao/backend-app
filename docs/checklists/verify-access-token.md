@@ -16,5 +16,6 @@
 - [ ] `verify-access-token.jwt-adapter.ts`
 - [x] Test: should call jwt.verify with correct input
 - [x] Test: should throw if jwt.verify throws
+- [x] Test: should throw if token is invalid
+- [x] Test: should throw if token is expired
 - [ ] Test: should return payload on success
-- [ ] Test: should return null if token is invalid or expired
