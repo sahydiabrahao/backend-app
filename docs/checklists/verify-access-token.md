@@ -8,7 +8,7 @@
 
 - [ ] `verify-access-token.use-case.ts`
 - [x] Test: should call VerifyAccessToken with correct input
-- [ ] Test: should throw if VerifyAccessToken throws
+- [x] Test: should throw if VerifyAccessToken throws
 - [ ] Test: should return payload on success
 
 ## 🛠️ INFRA (JWT)

@@ -24,4 +24,14 @@ describe('VerifyAccessTokenUseCase', () => {
 
     expect(spy).toHaveBeenCalledWith(FAKE_INPUT);
   });
+
+  it('should throw if VerifyAccessToken throws', async () => {
+    const { sut, verifyTokenStub } = makeSut();
+
+    jest.spyOn(verifyTokenStub, 'verify').mockImplementationOnce(() => {
+      throw new Error('invalid token');
+    });
+
+    await expect(sut.execute(FAKE_INPUT)).rejects.toThrow('invalid token');
+  });
 });
