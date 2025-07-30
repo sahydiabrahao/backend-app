@@ -11,7 +11,7 @@ export class SignInUseCase implements SignInProtocol {
     private readonly comparePassword: ComparePasswordProtocol
   ) {}
 
-  async signIn(input: SignInInput): Promise<SignInOutput> {
+  async execute(input: SignInInput): Promise<SignInOutput> {
     const user = await this.findUserByUsername.findByUsername({ username: input.username });
     if (!user) throw new InvalidCredentialsError();
     const isValidPassword = await this.comparePassword.compare({

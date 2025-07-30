@@ -13,7 +13,7 @@ export async function signInController(req: FastifyRequest, reply: FastifyReply)
 
     if (!username || !password) throw new MissingParamsError();
 
-    const { accessToken, userId } = await signInUseCase.signIn({ username, password });
+    const { accessToken, userId } = await signInUseCase.execute({ username, password });
 
     return reply.status(200).send({ accessToken, userId });
   } catch (error) {

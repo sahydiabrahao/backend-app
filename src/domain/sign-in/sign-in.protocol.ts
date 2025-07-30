@@ -9,5 +9,5 @@ export type SignInOutput = {
 };
 
 export interface SignInProtocol {
-  signIn(input: SignInInput): Promise<SignInOutput>;
+  execute(input: SignInInput): Promise<SignInOutput>;
 }

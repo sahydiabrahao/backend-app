@@ -71,7 +71,7 @@ describe('SignInUseCase', () => {
     const { sut, findUserByUsernameStub } = makeSut();
     const findByUsernameSpy = jest.spyOn(findUserByUsernameStub, 'findByUsername');
 
-    await sut.signIn(FAKE_INPUT);
+    await sut.execute(FAKE_INPUT);
     expect(findByUsernameSpy).toHaveBeenCalledWith({ username: FAKE_INPUT.username });
   });
 
@@ -80,36 +80,36 @@ describe('SignInUseCase', () => {
     jest
       .spyOn(findUserByUsernameStub, 'findByUsername')
       .mockRejectedValueOnce(new InvalidCredentialsError());
-    await expect(() => sut.signIn(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
+    await expect(() => sut.execute(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
   });
 
   it('should throw if user is not found', async () => {
     const { sut, findUserByUsernameStub } = makeSut();
     jest.spyOn(findUserByUsernameStub, 'findByUsername').mockResolvedValueOnce(null);
 
-    await expect(() => sut.signIn(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
+    await expect(() => sut.execute(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
   });
 
   it('should call AccessToken with correct input', async () => {
     const { sut, accessTokenStub } = makeSut();
-    const generateSpy = jest.spyOn(accessTokenStub, 'generate');
+    const executeSpy = jest.spyOn(accessTokenStub, 'generate');
 
-    await sut.signIn(FAKE_INPUT);
+    await sut.execute(FAKE_INPUT);
 
-    expect(generateSpy).toHaveBeenCalledWith({ key: 'any-id' });
+    expect(executeSpy).toHaveBeenCalledWith({ key: 'any-id' });
   });
 
   it('should throw if AccessToken throws', async () => {
     const { sut, accessTokenStub } = makeSut();
     jest.spyOn(accessTokenStub, 'generate').mockRejectedValueOnce(new Error('token-error'));
 
-    await expect(() => sut.signIn(FAKE_INPUT)).rejects.toThrow('token-error');
+    await expect(() => sut.execute(FAKE_INPUT)).rejects.toThrow('token-error');
   });
 
   it('should return token on success', async () => {
     const { sut } = makeSut();
 
-    const result = await sut.signIn(FAKE_INPUT);
+    const result = await sut.execute(FAKE_INPUT);
 
     expect(result).toEqual({
       accessToken: 'any-valid-token',
@@ -120,7 +120,7 @@ describe('SignInUseCase', () => {
   it('should call ComparePassword with correct input', async () => {
     const { sut, comparePasswordStub } = makeSut();
     const comparePasswordSpy = jest.spyOn(comparePasswordStub, 'compare');
-    await sut.signIn(FAKE_INPUT);
+    await sut.execute(FAKE_INPUT);
 
     expect(comparePasswordSpy).toHaveBeenCalledWith({
       password: FAKE_INPUT.password,
@@ -134,7 +134,7 @@ describe('SignInUseCase', () => {
       throw new Error('compare failed');
     });
 
-    await expect(sut.signIn(FAKE_INPUT)).rejects.toThrow('compare failed');
+    await expect(sut.execute(FAKE_INPUT)).rejects.toThrow('compare failed');
   });
 
   it('should throw if ComparePassword returns false', async () => {
@@ -142,6 +142,6 @@ describe('SignInUseCase', () => {
 
     jest.spyOn(comparePasswordStub, 'compare').mockResolvedValueOnce(false);
 
-    await expect(sut.signIn(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
+    await expect(sut.execute(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
   });
 });
