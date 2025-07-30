@@ -2,10 +2,11 @@ import { InvalidCredentialsError, MissingParamsError } from '@/domain/errors';
 import { signInController } from '@/main/sign-in/sign-in.controller';
 import { FastifyReply, FastifyRequest } from 'fastify';
 
-const mockSignIn = jest.fn();
-const mockFactory = { signIn: mockSignIn };
+const mockExecute = jest.fn();
+const mockFactory = { execute: mockExecute };
 
 jest.mock('@/main/sign-in/sign-in.factory', () => ({
+  __esModule: true,
   signInFactory: () => mockFactory,
 }));
 
@@ -45,14 +46,14 @@ describe('signInController', () => {
       password: 'invalid-password',
     };
 
-    mockSignIn.mockRejectedValueOnce(new InvalidCredentialsError());
+    mockExecute.mockRejectedValueOnce(new InvalidCredentialsError());
 
     const req = createMockRequest(input);
     const { reply, status, send } = createMockReply();
 
     await signInController(req, reply);
 
-    expect(mockSignIn).toHaveBeenCalledWith(input);
+    expect(mockExecute).toHaveBeenCalledWith(input);
     expect(status).toHaveBeenCalledWith(401);
     expect(send).toHaveBeenCalledWith({
       error: new InvalidCredentialsError().message,
@@ -60,6 +61,8 @@ describe('signInController', () => {
   });
 
   it('should return 200 and token if credentials are valid', async () => {
+    console.log(mockExecute.mock.calls);
+
     const input = {
       username: 'valid-username',
       password: 'valid-password',
@@ -70,14 +73,14 @@ describe('signInController', () => {
       userId: 'user-123',
     };
 
-    mockSignIn.mockResolvedValueOnce(response);
+    mockExecute.mockResolvedValueOnce(response);
 
     const req = createMockRequest(input);
     const { reply, status, send } = createMockReply();
 
     await signInController(req, reply);
 
-    expect(mockSignIn).toHaveBeenCalledWith(input);
+    expect(mockExecute).toHaveBeenCalledWith(input);
     expect(status).toHaveBeenCalledWith(200);
     expect(send).toHaveBeenCalledWith(response);
   });
