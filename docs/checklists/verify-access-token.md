@@ -14,7 +14,7 @@
 ## 🛠️ INFRA (JWT)
 
 - [ ] `verify-access-token.jwt-adapter.ts`
-- [ ] Test: should call jwt.verify with correct input
+- [x] Test: should call jwt.verify with correct input
 - [ ] Test: should throw if jwt.verify throws
 - [ ] Test: should return payload on success
 - [ ] Test: should return null if token is invalid or expired

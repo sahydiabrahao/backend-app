@@ -1,5 +1,5 @@
 import { VerifyAccessTokenUseCase } from '@/application/verify-access-token/verify-access-token.use-case';
-import { VerifyAccessTokenProtocol } from '@/domain/verify-access-token/verify-access-token';
+import { VerifyAccessTokenProtocol } from '@/domain/verify-access-token/verify-access-token.protocol';
 
 const makeVerifyAccessTokenStub = (): VerifyAccessTokenProtocol => ({
   verify: jest.fn(async () => ({ userId: 'any-user-id' })),
