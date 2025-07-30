@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import { FindUserByUsernameMongoAdapter } from '@/infra/find-user-by-username/find-user-by-username.mongo-adapter';
+import { FindUserByUsernameMongoAdapter } from '@/infra/find-user-by-email/find-user-by-email.mongo-adapter';
 import { AccessTokenJwtAdapter } from '@/infra/access-token/access-token.jwt-adapter';
 import { SignInUseCase } from '@/application/sign-in/sign-in.use-case';
 import { ComparePasswordBcryptAdapter } from '@/infra/compare-password/compare-password.bcrypt-adapter';

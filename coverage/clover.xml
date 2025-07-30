@@ -21,9 +21,9 @@
         <line num="11" count="4" type="stmt"/>
       </file>
     </package>
-    <package name="application.find-user-by-username">
+    <package name="application.find-user-by-email">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="find-user-by-username.use-case.ts" path="/home/user/Desktop/backend/src/application/find-user-by-username/find-user-by-username.use-case.ts">
+      <file name="find-user-by-email.use-case.ts" path="/home/user/Desktop/backend/src/application/find-user-by-email/find-user-by-email.use-case.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="4" type="stmt"/>
@@ -70,9 +70,9 @@
         <line num="10" count="4" type="stmt"/>
       </file>
     </package>
-    <package name="infra.find-user-by-username">
+    <package name="infra.find-user-by-email">
       <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-      <file name="find-user-by-username.mongo-adapter.ts" path="/home/user/Desktop/backend/src/infra/find-user-by-username/find-user-by-username.mongo-adapter.ts">
+      <file name="find-user-by-email.mongo-adapter.ts" path="/home/user/Desktop/backend/src/infra/find-user-by-email/find-user-by-email.mongo-adapter.ts">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="2" type="stmt"/>

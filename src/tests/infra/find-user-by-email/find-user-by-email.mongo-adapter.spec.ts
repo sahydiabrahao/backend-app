@@ -1,9 +1,9 @@
-// src/infra/mongo/find-user-by-username.mongo-adapter.spec.ts
+// src/infra/mongo/find-user-by-email.mongo-adapter.spec.ts
 
 import { MongoClient } from 'mongodb';
-import { FindUserByUsernameInput } from '@/domain/find-user-by-username/find-user-by-username.protocol';
+import { FindUserByEmailInput } from '@/domain/find-user-by-email/find-user-by-email.protocol';
 import dotenv from 'dotenv';
-import { FindUserByUsernameMongoAdapter } from '@/infra/find-user-by-username/find-user-by-username.mongo-adapter';
+import { FindUserByUsernameMongoAdapter } from '@/infra/find-user-by-email/find-user-by-email.mongo-adapter';
 
 dotenv.config();
 
@@ -14,13 +14,13 @@ describe('FindUserByUsernameMongoAdapter (integration)', () => {
   const DB_NAME = process.env.MONGO_DB_NAME!;
   const COLLECTION = process.env.MONGO_DB_COLLECTIONS!;
 
-  const FAKE_INPUT: FindUserByUsernameInput = {
-    username: 'any-username',
+  const FAKE_INPUT: FindUserByEmailInput = {
+    email: 'any-email',
   };
 
   const FAKE_USER = {
     id: 'any-id',
-    username: 'any-username',
+    email: 'any-email',
     password: 'hashed-password',
   };
 
@@ -41,15 +41,15 @@ describe('FindUserByUsernameMongoAdapter (integration)', () => {
     await client.close();
   });
 
-  it('should return user with id, username and password if found', async () => {
-    const result = await sut.findByUsername(FAKE_INPUT);
+  it('should return user with id, email and password if found', async () => {
+    const result = await sut.findByEmail(FAKE_INPUT);
 
     expect(result?.id).toBeTruthy();
-    expect(result?.username).toEqual('any-username');
+    expect(result?.email).toEqual('any-email');
   });
 
   it('should return null if user is not found', async () => {
-    const result = await sut.findByUsername({ username: 'invalid-username' });
+    const result = await sut.findByEmail({ email: 'invalid-email' });
 
     expect(result).toBeNull();
   });

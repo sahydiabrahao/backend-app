@@ -17,7 +17,7 @@ function createMockReply() {
   return { reply, status, send };
 }
 
-function createMockRequest(body: { username?: string; password?: string }): FastifyRequest {
+function createMockRequest(body: { email?: string; password?: string }): FastifyRequest {
   return {
     body,
   } as FastifyRequest;
@@ -28,7 +28,7 @@ describe('signInController', () => {
     jest.clearAllMocks();
   });
 
-  it('should return 400 if username or password is missing', async () => {
+  it('should return 400 if email or password is missing', async () => {
     const req = createMockRequest({}); // campos ausentes
     const { reply, status, send } = createMockReply();
 
@@ -42,7 +42,7 @@ describe('signInController', () => {
 
   it('should return 401 if credentials are invalid', async () => {
     const input = {
-      username: 'invalid-username',
+      email: 'invalid-email',
       password: 'invalid-password',
     };
 
@@ -64,7 +64,7 @@ describe('signInController', () => {
     console.log(mockExecute.mock.calls);
 
     const input = {
-      username: 'valid-username',
+      email: 'valid-email',
       password: 'valid-password',
     };
 

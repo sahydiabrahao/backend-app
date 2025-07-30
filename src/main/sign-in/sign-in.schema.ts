@@ -3,9 +3,9 @@ import { FastifySchema } from 'fastify';
 export const signInSchema: FastifySchema = {
   body: {
     type: 'object',
-    required: ['username', 'password'],
+    required: ['email', 'password'],
     properties: {
-      username: { type: 'string', minLength: 1 },
+      email: { type: 'string', minLength: 1 },
       password: { type: 'string', minLength: 1 },
     },
   },

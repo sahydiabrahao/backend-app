@@ -1,5 +1,5 @@
 export type SignInInput = {
-  username: string;
+  email: string;
   password: string;
 };
 

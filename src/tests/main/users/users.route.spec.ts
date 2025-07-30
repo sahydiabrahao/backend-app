@@ -26,8 +26,8 @@ describe('Users Routes', () => {
   it('should return 200 and userId when authenticated', async () => {
     const response = await fastify.inject({
       method: 'POST',
-      url: '/users/',
-      payload: {}, // seu schema pode exigir algum body – ajuste se necessário
+      url: '/users',
+      payload: {},
     });
 
     expect(response.statusCode).toBe(200);

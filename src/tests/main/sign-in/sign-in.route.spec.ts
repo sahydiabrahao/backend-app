@@ -19,7 +19,7 @@ describe('signInRoutes', () => {
       method: 'POST',
       url: '/sign-in',
       body: {
-        username: 'any-username',
+        email: 'any-email',
         password: 'any-password',
       },
     });

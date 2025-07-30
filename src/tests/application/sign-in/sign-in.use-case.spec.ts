@@ -2,16 +2,16 @@ import { SignInUseCase } from '@/application/sign-in/sign-in.use-case';
 import { AccessTokenProtocol } from '@/domain/access-token/access-token.protocol';
 import { ComparePasswordProtocol } from '@/domain/compare-password/compare-password.protocol';
 import { InvalidCredentialsError } from '@/domain/errors';
-import { FindUserByUsernameProtocol } from '@/domain/find-user-by-username/find-user-by-username.protocol';
+import { FindUserByEmailProtocol } from '@/domain/find-user-by-email/find-user-by-email.protocol';
 
 const FAKE_INPUT = {
-  username: 'any-username',
+  email: 'any-email',
   password: 'any-password',
 };
 
 const FAKE_USER = {
   id: 'any-id',
-  username: 'any-username',
+  email: 'any-email',
   password: 'any-hashed-password',
 };
 
@@ -21,7 +21,7 @@ const FAKE_TOKEN = {
 
 type SutTypes = {
   sut: SignInUseCase;
-  findUserByUsernameStub: FindUserByUsernameProtocol;
+  findUserByUsernameStub: FindUserByEmailProtocol;
   accessTokenStub: AccessTokenProtocol;
   comparePasswordStub: ComparePasswordProtocol;
 };
@@ -44,9 +44,9 @@ const makeAccessTokenStub = (): AccessTokenProtocol => {
   return new AccessTokenStub();
 };
 
-const makeFindUserByUsernameStub = (): FindUserByUsernameProtocol => {
-  class FindUserByUsernameStub implements FindUserByUsernameProtocol {
-    async findByUsername() {
+const makeFindUserByUsernameStub = (): FindUserByEmailProtocol => {
+  class FindUserByUsernameStub implements FindUserByEmailProtocol {
+    async findByEmail() {
       return FAKE_USER;
     }
   }
@@ -69,23 +69,23 @@ const makeSut = (): SutTypes => {
 describe('SignInUseCase', () => {
   it('should call FindUserByUsername with correct input', async () => {
     const { sut, findUserByUsernameStub } = makeSut();
-    const findByUsernameSpy = jest.spyOn(findUserByUsernameStub, 'findByUsername');
+    const findByEmailSpy = jest.spyOn(findUserByUsernameStub, 'findByEmail');
 
     await sut.execute(FAKE_INPUT);
-    expect(findByUsernameSpy).toHaveBeenCalledWith({ username: FAKE_INPUT.username });
+    expect(findByEmailSpy).toHaveBeenCalledWith({ email: FAKE_INPUT.email });
   });
 
   it('should throw if FindUserByUsername throws', async () => {
     const { sut, findUserByUsernameStub } = makeSut();
     jest
-      .spyOn(findUserByUsernameStub, 'findByUsername')
+      .spyOn(findUserByUsernameStub, 'findByEmail')
       .mockRejectedValueOnce(new InvalidCredentialsError());
     await expect(() => sut.execute(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
   });
 
   it('should throw if user is not found', async () => {
     const { sut, findUserByUsernameStub } = makeSut();
-    jest.spyOn(findUserByUsernameStub, 'findByUsername').mockResolvedValueOnce(null);
+    jest.spyOn(findUserByUsernameStub, 'findByEmail').mockResolvedValueOnce(null);
 
     await expect(() => sut.execute(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
   });

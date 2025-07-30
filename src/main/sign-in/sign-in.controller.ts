@@ -6,14 +6,14 @@ export async function signInController(req: FastifyRequest, reply: FastifyReply)
   const signInUseCase = signInFactory();
 
   try {
-    const { username, password } = req.body as {
-      username?: string;
+    const { email, password } = req.body as {
+      email?: string;
       password?: string;
     };
 
-    if (!username || !password) throw new MissingParamsError();
+    if (!email || !password) throw new MissingParamsError();
 
-    const { accessToken, userId } = await signInUseCase.execute({ username, password });
+    const { accessToken, userId } = await signInUseCase.execute({ email, password });
 
     return reply.status(200).send({ accessToken, userId });
   } catch (error) {
