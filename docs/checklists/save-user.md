@@ -2,7 +2,7 @@
 
 ## 🧩 DOMAIN
 
-- [ ] `save-user.protocol.ts`
+- [x] `save-user.protocol.ts`
 
 ## ⚙️ APPLICATION
 
