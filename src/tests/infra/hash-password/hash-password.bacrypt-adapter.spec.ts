@@ -22,4 +22,11 @@ describe('BcryptAdapter', () => {
       parseInt(process.env.BCRYPT_SALT!)
     );
   });
+  it('should throw if bcrypt.hash throws', async () => {
+    const { sut } = makeSut();
+    const bcryptHashMock = bcrypt.hash as jest.Mock;
+    bcryptHashMock.mockRejectedValue(new Error('hash error'));
+    const promise = sut.hash(FAKE_INPUT);
+    await expect(promise).rejects.toThrow('hash error');
+  });
 });
