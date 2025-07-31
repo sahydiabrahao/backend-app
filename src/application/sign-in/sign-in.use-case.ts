@@ -12,7 +12,7 @@ export class SignInUseCase implements SignInProtocol {
   ) {}
 
   async execute(input: SignInInput): Promise<SignInOutput> {
-    const user = await this.findUserByUsername.findByEmail({ email: input.email });
+    const user = await this.findUserByUsername.find({ email: input.email });
     if (!user) throw new InvalidCredentialsError();
     const isValidPassword = await this.comparePassword.compare({
       password: input.password,

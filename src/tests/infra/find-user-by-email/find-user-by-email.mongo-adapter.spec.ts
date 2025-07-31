@@ -42,14 +42,14 @@ describe('FindUserByUsernameMongoAdapter (integration)', () => {
   });
 
   it('should return user with id, email and password if found', async () => {
-    const result = await sut.findByEmail(FAKE_INPUT);
+    const result = await sut.find(FAKE_INPUT);
 
     expect(result?.id).toBeTruthy();
     expect(result?.email).toEqual('any-email');
   });
 
   it('should return null if user is not found', async () => {
-    const result = await sut.findByEmail({ email: 'invalid-email' });
+    const result = await sut.find({ email: 'invalid-email' });
 
     expect(result).toBeNull();
   });

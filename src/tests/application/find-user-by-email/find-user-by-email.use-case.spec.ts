@@ -20,7 +20,7 @@ type SutTypes = {
 
 const makeFindUserByUsernameStub = (): FindUserByEmailProtocol => {
   class FindUserByUsernameStub implements FindUserByEmailProtocol {
-    async findByEmail() {
+    async find() {
       return FAKE_USER;
     }
   }
@@ -39,16 +39,14 @@ const makeSut = (): SutTypes => {
 describe('FindUserByUsernameUseCase', () => {
   it('should call FindUserByUsername with correct input', async () => {
     const { sut, findUserByUsernameStub } = makeSut();
-    const findByEmailSpy = jest.spyOn(findUserByUsernameStub, 'findByEmail');
+    const findSpy = jest.spyOn(findUserByUsernameStub, 'find');
     await sut.execute(FAKE_INPUT);
-    expect(findByEmailSpy).toHaveBeenCalledWith(FAKE_INPUT);
+    expect(findSpy).toHaveBeenCalledWith(FAKE_INPUT);
   });
 
   it('should throw if FindUserByUsername throws', async () => {
     const { sut, findUserByUsernameStub } = makeSut();
-    jest
-      .spyOn(findUserByUsernameStub, 'findByEmail')
-      .mockRejectedValueOnce(new Error('unexpected_error'));
+    jest.spyOn(findUserByUsernameStub, 'find').mockRejectedValueOnce(new Error('unexpected_error'));
     await expect(sut.execute(FAKE_INPUT)).rejects.toThrow('unexpected_error');
   });
 
@@ -60,7 +58,7 @@ describe('FindUserByUsernameUseCase', () => {
 
   it('should return null if user is not found', async () => {
     const { sut, findUserByUsernameStub } = makeSut();
-    jest.spyOn(findUserByUsernameStub, 'findByEmail').mockResolvedValueOnce(null);
+    jest.spyOn(findUserByUsernameStub, 'find').mockResolvedValueOnce(null);
     const result = await sut.execute(FAKE_INPUT);
     expect(result).toBeNull();
   });

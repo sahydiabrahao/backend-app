@@ -9,5 +9,5 @@ export type FindUserByEmailOutput = {
 };
 
 export interface FindUserByEmailProtocol {
-  findByEmail(input: FindUserByEmailInput): Promise<FindUserByEmailOutput | null>;
+  find(input: FindUserByEmailInput): Promise<FindUserByEmailOutput | null>;
 }

@@ -8,6 +8,6 @@ export class FindUserByUsernameUseCase {
   constructor(private readonly findUserByEmail: FindUserByEmailProtocol) {}
 
   async execute(input: FindUserByEmailInput): Promise<FindUserByEmailOutput | null> {
-    return this.findUserByEmail.findByEmail(input);
+    return this.findUserByEmail.find(input);
   }
 }

@@ -46,7 +46,7 @@ const makeAccessTokenStub = (): AccessTokenProtocol => {
 
 const makeFindUserByUsernameStub = (): FindUserByEmailProtocol => {
   class FindUserByUsernameStub implements FindUserByEmailProtocol {
-    async findByEmail() {
+    async find() {
       return FAKE_USER;
     }
   }
@@ -69,23 +69,21 @@ const makeSut = (): SutTypes => {
 describe('SignInUseCase', () => {
   it('should call FindUserByUsername with correct input', async () => {
     const { sut, findUserByUsernameStub } = makeSut();
-    const findByEmailSpy = jest.spyOn(findUserByUsernameStub, 'findByEmail');
+    const findSpy = jest.spyOn(findUserByUsernameStub, 'find');
 
     await sut.execute(FAKE_INPUT);
-    expect(findByEmailSpy).toHaveBeenCalledWith({ email: FAKE_INPUT.email });
+    expect(findSpy).toHaveBeenCalledWith({ email: FAKE_INPUT.email });
   });
 
   it('should throw if FindUserByUsername throws', async () => {
     const { sut, findUserByUsernameStub } = makeSut();
-    jest
-      .spyOn(findUserByUsernameStub, 'findByEmail')
-      .mockRejectedValueOnce(new InvalidCredentialsError());
+    jest.spyOn(findUserByUsernameStub, 'find').mockRejectedValueOnce(new InvalidCredentialsError());
     await expect(() => sut.execute(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
   });
 
   it('should throw if user is not found', async () => {
     const { sut, findUserByUsernameStub } = makeSut();
-    jest.spyOn(findUserByUsernameStub, 'findByEmail').mockResolvedValueOnce(null);
+    jest.spyOn(findUserByUsernameStub, 'find').mockResolvedValueOnce(null);
 
     await expect(() => sut.execute(FAKE_INPUT)).rejects.toThrow(InvalidCredentialsError);
   });

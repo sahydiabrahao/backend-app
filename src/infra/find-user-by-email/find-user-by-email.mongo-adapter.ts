@@ -9,7 +9,7 @@ import { MongoClient } from 'mongodb';
 
 export class FindUserByUsernameMongoAdapter implements FindUserByEmailProtocol {
   constructor(private readonly client: MongoClient) {}
-  async findByEmail(input: FindUserByEmailInput): Promise<FindUserByEmailOutput | null> {
+  async find(input: FindUserByEmailInput): Promise<FindUserByEmailOutput | null> {
     const email = input.email;
 
     const user = await this.client
