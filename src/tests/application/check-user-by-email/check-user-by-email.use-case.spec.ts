@@ -34,9 +34,12 @@ describe('CheckUserByEmailUseCase', () => {
   it('should call FindUserByEmail with correct input', async () => {
     const { sut, findUserByEmailStub } = makeSut();
     const findSpy = jest.spyOn(findUserByEmailStub, 'find');
-
     await sut.execute(FAKE_INPUT);
-
     expect(findSpy).toHaveBeenCalledWith(FAKE_INPUT);
+  });
+  it('should throw if FindUserByEmail throws', async () => {
+    const { sut, findUserByEmailStub } = makeSut();
+    jest.spyOn(findUserByEmailStub, 'find').mockRejectedValue(new Error('any-error'));
+    await expect(sut.execute(FAKE_INPUT)).rejects.toThrow('any-error');
   });
 });
