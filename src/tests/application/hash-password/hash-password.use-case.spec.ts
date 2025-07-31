@@ -2,6 +2,7 @@ import { HashPasswordUseCase } from '@/application/hash-password/hash-password.u
 import { HashPasswordProtocol } from '@/domain/hash-password/hash-password.protocol';
 
 const FAKE_INPUT = { password: 'any-password' };
+const FAKE_HASH = { hash: 'any-hash' };
 
 type SutTypes = {
   sut: HashPasswordUseCase;
@@ -11,9 +12,7 @@ type SutTypes = {
 const makeHashPasswordStub = (): HashPasswordProtocol => {
   class HashPasswordStub implements HashPasswordProtocol {
     async hash() {
-      return {
-        hash: 'any-hash',
-      };
+      return FAKE_HASH;
     }
   }
   return new HashPasswordStub();
@@ -39,5 +38,10 @@ describe('HashPasswordUseCase', () => {
     const { sut, hashPasswordStub } = makeSut();
     jest.spyOn(hashPasswordStub, 'hash').mockRejectedValueOnce(new Error('unexpected_error'));
     await expect(sut.execute(FAKE_INPUT)).rejects.toThrow('unexpected_error');
+  });
+  it('should return hashedPassword on success', async () => {
+    const { sut } = makeSut();
+    const result = await sut.execute(FAKE_INPUT);
+    expect(result).toEqual(FAKE_HASH);
   });
 });

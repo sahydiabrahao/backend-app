@@ -9,7 +9,7 @@
 - [x] `hash-password.use-case.ts`
 - [x] Test: should call HashPassword with correct input
 - [x] Test: should throw if HashPassword throws
-- [ ] Test: should return hashedPassword on success
+- [x] Test: should return hashedPassword on success
 
 ## 🛠️ INFRA (Bcrypt)
 
