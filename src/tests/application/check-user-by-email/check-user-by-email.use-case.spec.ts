@@ -42,4 +42,10 @@ describe('CheckUserByEmailUseCase', () => {
     jest.spyOn(findUserByEmailStub, 'find').mockRejectedValue(new Error('any-error'));
     await expect(sut.execute(FAKE_INPUT)).rejects.toThrow('any-error');
   });
+  it('should return false if user does not exist', async () => {
+    const { sut, findUserByEmailStub } = makeSut();
+    jest.spyOn(findUserByEmailStub, 'find').mockResolvedValue(null);
+    const result = await sut.execute(FAKE_INPUT);
+    expect(result).toBe(false);
+  });
 });
