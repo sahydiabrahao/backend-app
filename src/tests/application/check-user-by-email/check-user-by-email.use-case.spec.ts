@@ -48,4 +48,9 @@ describe('CheckUserByEmailUseCase', () => {
     const result = await sut.execute(FAKE_INPUT);
     expect(result).toBe(false);
   });
+  it('should return true if user exists', async () => {
+    const { sut } = makeSut();
+    const result = await sut.execute(FAKE_INPUT);
+    expect(result).toBe(true);
+  });
 });
