@@ -16,4 +16,4 @@
 - [x] `hash-password.bcrypt-adapter.ts`
 - [x] Test: should call bcrypt.hash with correct input
 - [x] Test: should throw if bcrypt.hash throws
-- [ ] Test: should return hashedPassword on success
+- [x] Test: should return hashedPassword on success

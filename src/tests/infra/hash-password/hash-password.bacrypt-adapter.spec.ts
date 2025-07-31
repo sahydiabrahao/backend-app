@@ -2,9 +2,9 @@ import { HashPasswordBcryptAdapter } from '@/infra/hash-password/hash-password.b
 import bcrypt from 'bcryptjs';
 
 jest.mock('bcryptjs');
-
+const bcryptHashMock = bcrypt.hash as jest.Mock;
 const FAKE_INPUT = { password: 'any-password' };
-const FAKE_HASH = 'any-hash';
+const FAKE_HASH = { hash: 'any-hash' };
 
 const makeSut = () => {
   const sut = new HashPasswordBcryptAdapter(parseInt(process.env.BCRYPT_SALT!));
@@ -14,10 +14,8 @@ const makeSut = () => {
 describe('BcryptAdapter', () => {
   it('should call bcrypt.hash with correct input', async () => {
     const { sut } = makeSut();
-    const bcryptHashSpy = bcrypt.hash as jest.Mock;
-    bcryptHashSpy.mockResolvedValue(FAKE_HASH);
     await sut.hash(FAKE_INPUT);
-    expect(bcryptHashSpy).toHaveBeenCalledWith(
+    expect(bcryptHashMock).toHaveBeenCalledWith(
       FAKE_INPUT.password,
       parseInt(process.env.BCRYPT_SALT!)
     );
@@ -28,5 +26,11 @@ describe('BcryptAdapter', () => {
     bcryptHashMock.mockRejectedValue(new Error('hash error'));
     const promise = sut.hash(FAKE_INPUT);
     await expect(promise).rejects.toThrow('hash error');
+  });
+  it('should return hashedPassword on success', async () => {
+    const { sut } = makeSut();
+    bcryptHashMock.mockResolvedValue(FAKE_HASH.hash);
+    const result = await sut.hash(FAKE_INPUT);
+    expect(result).toEqual(FAKE_HASH);
   });
 });

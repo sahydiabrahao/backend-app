@@ -10,6 +10,7 @@ export class HashPasswordBcryptAdapter implements HashPasswordProtocol {
 
   async hash(input: HashPasswordInput): Promise<HashPasswordOutput> {
     const hash = await bcrypt.hash(input.password, this.salt);
+    console.log(hash);
     return {
       hash: hash,
     };
