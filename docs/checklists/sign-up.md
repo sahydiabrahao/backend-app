@@ -2,7 +2,7 @@
 
 ## 🧩 DOMAIN
 
-- [ ] `sign-up.protocol.ts`
+- [x] `sign-up.protocol.ts`
 
 ## ⚙️ APPLICATION
 
