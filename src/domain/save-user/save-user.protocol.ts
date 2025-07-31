@@ -8,6 +8,6 @@ export interface SaveUserOutput {
   email: string;
 }
 
-export interface SaveUser {
+export interface SaveUserProtocol {
   save(input: SaveUserInput): Promise<SaveUserOutput>;
 }

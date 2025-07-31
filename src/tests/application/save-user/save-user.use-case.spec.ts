@@ -1,7 +1,11 @@
 // src/application/save-user/save-user.use-case.spec.ts
 
 import { SaveUserUseCase } from '@/application/save-user/save-user.use-case';
-import { SaveUser, SaveUserInput, SaveUserOutput } from '@/domain/save-user/save-user.protocol';
+import {
+  SaveUserProtocol,
+  SaveUserInput,
+  SaveUserOutput,
+} from '@/domain/save-user/save-user.protocol';
 
 const FAKE_INPUT: SaveUserInput = {
   email: 'any-email',
@@ -15,11 +19,11 @@ const FAKE_USER: SaveUserOutput = {
 
 type SutTypes = {
   sut: SaveUserUseCase;
-  saveUserStub: SaveUser;
+  saveUserStub: SaveUserProtocol;
 };
 
-const makeSaveUserStub = (): SaveUser => {
-  class SaveUserStub implements SaveUser {
+const makeSaveUserStub = (): SaveUserProtocol => {
+  class SaveUserStub implements SaveUserProtocol {
     async save(): Promise<SaveUserOutput> {
       return FAKE_USER;
     }

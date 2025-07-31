@@ -1,7 +1,11 @@
-import { SaveUser, SaveUserInput, SaveUserOutput } from '@/domain/save-user/save-user.protocol';
+import {
+  SaveUserProtocol,
+  SaveUserInput,
+  SaveUserOutput,
+} from '@/domain/save-user/save-user.protocol';
 import { MongoClient } from 'mongodb';
 
-export class SaveUserMongoAdapter implements SaveUser {
+export class SaveUserMongoAdapter implements SaveUserProtocol {
   constructor(private readonly client: MongoClient) {}
 
   async save(input: SaveUserInput): Promise<SaveUserOutput> {

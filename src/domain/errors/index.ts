@@ -39,3 +39,9 @@ export class ExpiredTokenError extends HttpError {
     super('Token expired', 401);
   }
 }
+
+export class EmailAlreadyExistsError extends HttpError {
+  constructor() {
+    super('Email already in use', 409);
+  }
+}
