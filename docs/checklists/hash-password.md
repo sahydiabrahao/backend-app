@@ -13,7 +13,7 @@
 
 ## 🛠️ INFRA (Bcrypt)
 
-- [ ] `hash-password.bcrypt-adapter.ts`
-- [ ] Test: should call bcrypt.hash with correct input
+- [x] `hash-password.bcrypt-adapter.ts`
+- [x] Test: should call bcrypt.hash with correct input
 - [ ] Test: should throw if bcrypt.hash throws
 - [ ] Test: should return hashedPassword on success
