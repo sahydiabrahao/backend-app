@@ -35,4 +35,9 @@ describe('HashPasswordUseCase', () => {
     await sut.execute(FAKE_INPUT);
     expect(hashPasswordSpy).toHaveBeenCalledWith(FAKE_INPUT);
   });
+  it('should throw if HashPassword throws', async () => {
+    const { sut, hashPasswordStub } = makeSut();
+    jest.spyOn(hashPasswordStub, 'hash').mockRejectedValueOnce(new Error('unexpected_error'));
+    await expect(sut.execute(FAKE_INPUT)).rejects.toThrow('unexpected_error');
+  });
 });
