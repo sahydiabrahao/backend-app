@@ -6,15 +6,14 @@
 
 ## ⚙️ APPLICATION
 
-- [ ] `save-user.use-case.ts`
-- [ ] Test: should call SaveUser with correct input
-- [ ] Test: should throw if SaveUser throws
-- [ ] Test: should return user on success
+- [x] `save-user.use-case.ts`
+- [x] Test: should call SaveUser with correct input
+- [x] Test: should throw if SaveUser throws
+- [x] Test: should return user on success
 
 ## 🛠️ INFRA (Mongo)
 
-- [ ] `save-user.mongo-adapter.ts`
-- [ ] Test: should call MongoClient with correct input
-- [ ] Test: should throw if MongoClient throws
-- [ ] Test: should return user on success
-- [ ] Test: should return null if user is not found
+- [x] `save-user.mongo-adapter.ts`
+- [x] Test: should call MongoClient with correct input
+- [x] Test: should throw if MongoClient throws
+- [x] Test: should return user on success
