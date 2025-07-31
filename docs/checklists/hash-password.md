@@ -6,8 +6,8 @@
 
 ## ⚙️ APPLICATION
 
-- [ ] `hash-password.use-case.ts`
-- [ ] Test: should call HashPassword with correct input
+- [x] `hash-password.use-case.ts`
+- [x] Test: should call HashPassword with correct input
 - [ ] Test: should throw if HashPassword throws
 - [ ] Test: should return hashedPassword on success
 

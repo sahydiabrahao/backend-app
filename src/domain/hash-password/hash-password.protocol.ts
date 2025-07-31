@@ -6,6 +6,6 @@ export type HashPasswordOutput = {
   hash: string;
 };
 
-export interface HashPassword {
+export interface HashPasswordProtocol {
   hash(input: HashPasswordInput): Promise<HashPasswordOutput>;
 }
