@@ -19,7 +19,7 @@ describe('signUpRoutes', () => {
       method: 'POST',
       url: '/sign-up',
       payload: {
-        email: 'any-email',
+        email: 'any-email@mail.com',
         password: 'any-password',
       },
     });
