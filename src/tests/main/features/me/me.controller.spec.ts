@@ -1,4 +1,4 @@
-import { meController } from '@/main/me/me.controller';
+import { meController } from '@/main/features/me/me.controller';
 import { FastifyRequest, FastifyReply } from 'fastify';
 
 describe('usersController', () => {

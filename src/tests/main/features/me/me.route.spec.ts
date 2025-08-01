@@ -1,4 +1,4 @@
-import { meRoutes } from '@/main/me/me.route';
+import { meRoutes } from '@/main/features/me/me.route';
 import Fastify from 'fastify';
 
 jest.mock('@/main/middlewares/verify-access-token/verify-access-token.middleware', () => ({

@@ -4,11 +4,11 @@ const mockController = jest.fn(async (_req: FastifyRequest, reply: FastifyReply)
   return reply.status(201).send({ message: 'user created' });
 });
 
-jest.mock('@/main/sign-up/sign-up.controller', () => ({
+jest.mock('@/main/features/sign-up/sign-up.controller', () => ({
   signUpController: mockController,
 }));
 
-import { signUpRoutes } from '@/main/sign-up/sign-up.route';
+import { signUpRoutes } from '@/main/features/sign-up/sign-up.route';
 
 describe('signUpRoutes', () => {
   it('should register POST /sign-up and call the controller', async () => {

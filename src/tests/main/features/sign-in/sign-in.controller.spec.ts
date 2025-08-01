@@ -1,11 +1,11 @@
 import { InvalidCredentialsError, MissingParamsError } from '@/domain/errors';
-import { signInController } from '@/main/sign-in/sign-in.controller';
+import { signInController } from '@/main/features/sign-in/sign-in.controller';
 import { FastifyReply, FastifyRequest } from 'fastify';
 
 const mockExecute = jest.fn();
 const mockFactory = { execute: mockExecute };
 
-jest.mock('@/main/sign-in/sign-in.factory', () => ({
+jest.mock('@/main/features/sign-in/sign-in.factory', () => ({
   __esModule: true,
   signInFactory: () => mockFactory,
 }));

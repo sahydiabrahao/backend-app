@@ -1,11 +1,11 @@
-import { signUpController } from '@/main/sign-up/sign-up.controller';
+import { signUpController } from '@/main/features/sign-up/sign-up.controller';
 import { EmailAlreadyExistsError, MissingParamsError } from '@/domain/errors';
 import { FastifyReply, FastifyRequest } from 'fastify';
 
 const mockExecute = jest.fn();
 const mockFactory = { execute: mockExecute };
 
-jest.mock('@/main/sign-up/sign-up.factory', () => ({
+jest.mock('@/main/features/sign-up/sign-up.factory', () => ({
   __esModule: true,
   signUpFactory: () => mockFactory,
 }));
