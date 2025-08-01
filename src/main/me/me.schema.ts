@@ -1,4 +1,4 @@
-export const usersSchema = {
+export const meSchema = {
   response: {
     200: {
       type: 'object',

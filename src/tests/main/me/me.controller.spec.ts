@@ -1,4 +1,4 @@
-import { usersController } from '@/main/users/users.controller';
+import { meController } from '@/main/me/me.controller';
 import { FastifyRequest, FastifyReply } from 'fastify';
 
 describe('usersController', () => {
@@ -14,7 +14,7 @@ describe('usersController', () => {
       status,
     } as unknown as FastifyReply;
 
-    await usersController(mockRequest, mockReply);
+    await meController(mockRequest, mockReply);
 
     expect(status).toHaveBeenCalledWith(200);
     expect(send).toHaveBeenCalledWith({ userId: '123456' });

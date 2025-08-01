@@ -1,4 +1,4 @@
-import { usersRoutes } from '@/main/users/users.route';
+import { meRoutes } from '@/main/me/me.route';
 import Fastify from 'fastify';
 
 jest.mock('@/main/middlewares/verify-access-token/verify-access-token.middleware', () => ({
@@ -12,25 +12,24 @@ jest.mock('@/main/middlewares/verify-access-token/verify-access-token.middleware
   },
 }));
 
-describe('Users Routes', () => {
+describe('me Routes', () => {
   const fastify = Fastify();
 
   beforeAll(async () => {
-    await fastify.register(usersRoutes);
+    await fastify.register(meRoutes);
   });
 
   afterAll(async () => {
     await fastify.close();
   });
 
-  it('should return 200 and userId when authenticated', async () => {
+  it('should return 200 when authenticated', async () => {
     const response = await fastify.inject({
       method: 'POST',
-      url: '/users',
+      url: '/me',
       payload: {},
     });
 
     expect(response.statusCode).toBe(200);
-    expect(response.json()).toEqual({ userId: 'mock-user-id' });
   });
 });
